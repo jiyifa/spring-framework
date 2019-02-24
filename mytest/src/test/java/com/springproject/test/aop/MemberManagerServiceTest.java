@@ -22,6 +22,10 @@ public class MemberManagerServiceTest {
 
 	//做事务代理的时候
 	//TransactionManager来管理事务操作（切面）
+	//DataSource,SessionFactory(DataSource)
+	//DataSource包含了连接信息，事务的提交，回滚的一些基础功能
+	//通过连接点可以获取到方法（切点）具体哪个DataSource
+	//根据切面的通知类型，去执行DataSource的功能方法
 	@Test
 	public void testRemove(){
 		try {
