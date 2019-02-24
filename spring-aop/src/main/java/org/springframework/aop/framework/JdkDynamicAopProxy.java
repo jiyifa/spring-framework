@@ -162,6 +162,12 @@ final class JdkDynamicAopProxy implements AopProxy, InvocationHandler, Serializa
 
 
 	/**
+	 * 代理对象生成了，那切面是如何织入的？
+	 * 我们知道InvocationHandler是JDK动态代理的核心，生成的代理对象的方法调用都会委托到InvocationHandler.invoke()
+	 * 方法，而通过JdkDynamicAopProxy的签名我们可以看到这个类其实实现了InvocationHandler，下面我们通过分析这个类中实现的
+	 * invoke()方法来具体看下Spring AOP是如何织入切面的。
+	 * 主要流程可以简述为，获取可以应用到此方法上的通知链（Interceptor Chain）,如果有，则应用通知，并执行joinpoint,
+	 * 如果没有，则直接反射执行joinport.而这里的关键是通知链是如何获取的以及如何执行的
 	 * Implementation of {@code InvocationHandler.invoke}.
 	 * <p>Callers will see exactly the exception thrown by the target,
 	 * unless a hook method throws an exception.
@@ -205,10 +211,12 @@ final class JdkDynamicAopProxy implements AopProxy, InvocationHandler, Serializa
 
 			// Get as late as possible to minimize the time we "own" the target,
 			// in case it comes from a pool.
+			//获取目标对象的类
 			target = targetSource.getTarget();
 			Class<?> targetClass = (target != null ? target.getClass() : null);
 
 			// Get the interception chain for this method.
+			//获取可以应用到此方法上的Interceptor列表，AOP加上去的，为环绕通知准备
 			List<Object> chain = this.advised.getInterceptorsAndDynamicInterceptionAdvice(method, targetClass);
 
 			// Check whether we have any advice. If we don't, we can fallback on direct
