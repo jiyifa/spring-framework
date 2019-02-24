@@ -114,6 +114,9 @@ final class JdkDynamicAopProxy implements AopProxy, InvocationHandler, Serializa
 	}
 
 	/**
+	 * Spring提供两种方式来生成代理对象：JDKProxy和Cglib,具体使用哪种生成由AopProxyFactory根据
+	 * AdvicedSupport对象的配置来决定，默认的策略是如果目标类是接口，则使用JDK动态代理技术，否则使用Cglib来生成代理
+	 * 下面我们来研究Spring如何使用JDK来生成代理对象，具体的生成代码放在JdkDynamicAopProxy这个类中
 	 * <ol>
 	 *     <li>
 	 *         获取代理类要实现的接口，除了Adviced对象中配置的，还会加上SpringProxy ,Adviced(opaque=false)
