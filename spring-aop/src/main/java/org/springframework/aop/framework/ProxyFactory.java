@@ -112,8 +112,12 @@ public class ProxyFactory extends ProxyCreatorSupport {
 
 
 	/**
-	 * 这个方法就是用来获取一个代理以后的bean,跟IOC体系里面的getBean
+	 * 1.这个方法就是用来获取一个代理以后的bean,跟IOC体系里面的getBean
 	 * 异曲同工
+	 * AOP不需要执行上面的那些创建对象的操作了
+	 * 只要拿到IOC的引用，直接从IOC容器中取出需要二次操作的所有对象
+	 * IOC已经是代理类了
+	 * 那么AOP中，对代理类的二次操作
 	 * Create a new proxy for the given interface and interceptor.
 	 * <p>Convenience method for creating a proxy for a single interceptor,
 	 * assuming that the interceptor handles all calls itself rather than
