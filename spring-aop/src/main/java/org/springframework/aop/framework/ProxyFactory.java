@@ -112,6 +112,8 @@ public class ProxyFactory extends ProxyCreatorSupport {
 
 
 	/**
+	 * 这个方法就是用来获取一个代理以后的bean,跟IOC体系里面的getBean
+	 * 异曲同工
 	 * Create a new proxy for the given interface and interceptor.
 	 * <p>Convenience method for creating a proxy for a single interceptor,
 	 * assuming that the interceptor handles all calls itself rather than
