@@ -40,6 +40,7 @@ import org.springframework.aop.TargetSource;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.cglib.core.ClassGenerator;
 import org.springframework.cglib.core.CodeGenerationException;
+import org.springframework.cglib.core.DebuggingClassWriter;
 import org.springframework.cglib.core.SpringNamingPolicy;
 import org.springframework.cglib.proxy.Callback;
 import org.springframework.cglib.proxy.CallbackFilter;
@@ -176,6 +177,8 @@ class CglibAopProxy implements AopProxy, Serializable {
 
 			// Validate the class, writing log messages as necessary.
 			validateClassIfNecessary(proxySuperClass, classLoader);
+
+			System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "D:\\ideaproject\\springproject\\spring-framework\\mytest\\out\\cglib");
 
 			// Configure CGLIB Enhancer...
 			Enhancer enhancer = createEnhancer();
